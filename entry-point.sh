@@ -11,9 +11,12 @@ export MYSQL_ROOT_PASSWORD=$(echo "$MYSQL_ROOT_PASSWORD" | tr -d '"')
 # It means that when you are in a deployment process the maintenance mode is turned on, when the SSL certificate will generate
 # then automatically the site with correct certificate will be online
 if [[ -d /var/www/maintenance-page/.well-known ]]; then
+    echo " >> Linking maintenance page for ${app}"
+
     for app in /www/*/; do
         rm -rf "${app}/.well-known"
-        ln -s /var/www/maintenance-page/.well-known "${app}/.well-known"
+        su production -c "ln -s /var/www/maintenance-page/.well-known '${app}/.well-known'"
+        chown production:production "${app}/.well-known" -R
     done
 fi
 
