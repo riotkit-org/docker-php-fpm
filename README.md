@@ -1,4 +1,4 @@
-Alpine based PHP 7.1 container with PHP-FPM
+Alpine based PHP 7.2 container with PHP-FPM
 ===========================================
 
 [![ImageLayers Layers](https://img.shields.io/imagelayers/layers/wolnosciowiec/docker-php-fpm/latest.svg)]()

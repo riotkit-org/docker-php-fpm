@@ -51,7 +51,7 @@ RUN set -x && \
 
     # configure PHP
     && apk add --update freetype-dev libjpeg-turbo-dev libpng-dev \
-    && docker-php-ext-install pdo_mysql curl mbstring iconv \
+    && docker-php-ext-install pdo_mysql curl mbstring iconv opcache \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \ 
     && docker-php-source extract \
@@ -119,6 +119,7 @@ RUN chmod +x /entry-point.sh /provision-on-deployment.sh
 ADD etc/php-fpm.conf /usr/local/etc/php-fpm.conf
 ADD etc/wolnosciowiec.pool.conf /usr/local/etc/php/php-fpm.d/www.conf
 ADD etc/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD etc/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 # Entry point
 ENTRYPOINT ["/entry-point.sh"]
