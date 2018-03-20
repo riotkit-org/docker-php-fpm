@@ -20,4 +20,13 @@ if [[ -d /var/www/maintenance-page/.well-known ]]; then
     done
 fi
 
+# in case that the directory was not created
+mkdir -p /entrypoint-before-supervisor.d
+
+for f in /entrypoint-before-supervisor.d/*; do
+    case "$f" in
+        *.sh)     echo "$0: running $f"; . "$f" ;;
+    esac
+done
+
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
